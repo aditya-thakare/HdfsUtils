@@ -15,8 +15,8 @@ public class HDFSConfigUtils {
 		return loadConfigsAndGetFileSystem(hadoopConfDirProp, null, null);
 	}
 
-	public static FileSystem loadConfigsAndGetFileSystem(String hadoopConfDirProp, String uri) throws Exception{
-		return loadConfigsAndGetFileSystem(hadoopConfDirProp, uri, null);
+	public static FileSystem loadConfigsAndGetFileSystem(String hadoopConfDirProp, String doAs) throws Exception{
+		return loadConfigsAndGetFileSystem(hadoopConfDirProp, null, doAs);
 	}
 
 	public static FileSystem loadConfigsAndGetFileSystem(String hadoopConfDirProp, String uri, String doAs) throws Exception{
@@ -24,7 +24,7 @@ public class HDFSConfigUtils {
 		if (doAs != null){
 			System.setProperty("HADOOP_USER_NAME", doAs);
 		}
-		
+
 		Configuration config;
 		FileSystem hdfs;
 		if (hadoopConfDirProp == null)
@@ -37,6 +37,8 @@ public class HDFSConfigUtils {
 			File f = new File(hadoopConfDir, file);
 			if (f.exists()) {
 				config.addResource(new Path(f.getAbsolutePath()));
+				System.out.println("*******\n\n\n\n\n\n\n\n\n\n\n\n*******FOUND FILE HERE:"
+						+ f.getAbsolutePath()+"*******\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n*******");
 			}
 		}
 
